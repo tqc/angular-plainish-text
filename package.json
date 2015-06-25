@@ -1,0 +1,19 @@
+{
+  "name": "plainishtext",
+  "version": "1.0.0",
+  "description": "An angular directive for editing text with some formatting but not much.",
+  "repository": {
+    "url": "http://github.com/tqc/plainish-text"
+  },
+  "main": "src/index.js",
+  "keywords": [
+    "angular",
+    "contenteditable"
+  ],
+  "author": "Tom Clarkson",
+  "license": "MIT",
+  "devDependencies": {
+    "angular-directive-builder": "^1.0.1",
+    "gh-pages": "^0.3.1"
+  }
+}
