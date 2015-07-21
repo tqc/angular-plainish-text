@@ -6,7 +6,18 @@ export default {
             scope: true,
             link: function($scope, $element, $attrs) {
                 $element.attr("contenteditable", "true");
+                var options = {
+                    allowedTags: "p,b,i,ul,ol,li"
+                };
 
+                if ($attrs.options) {
+                    $scope.$watch($attrs.options, function(o) {
+                    if (o) {
+                        options = angular.extend(options, o);
+                    }
+                });
+
+                }
                 var getter = $parse($attrs.ngModel),
                     setter = getter.assign;
 
@@ -36,7 +47,7 @@ export default {
                         .replace(/&nbsp;/gi, " ")
 
                     .replace(/<div>/gi, "<p>")
-                        .replace(/<\/div>/gi, "</p>")
+                        .replace(/<\/div>/gi, "</p>");
 
                     if (result != renderedHtml) {
                         renderedHtml = result;
@@ -188,7 +199,7 @@ export default {
 
 
                 $element.on("keypress", function(e) {
-                    if (e.keyCode == '13' || isEmpty) {
+                    if ((e.keyCode == '13' && !e.shiftKey) || isEmpty) {
                         if (!selectionIsList()) {
                             document.execCommand("formatBlock", false, "p");
                         }
@@ -204,7 +215,7 @@ export default {
                         }
                     });
 
-                    if (!$root.is("p,b,i,ul,ol,li")) {
+                    if (!$root.is(options.allowedTags)) {
                         //                    w.replaceWith(w[0].innerHTML);
                         $root.replaceWith(root.innerHTML);
                     } else {
