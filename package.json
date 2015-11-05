@@ -1,9 +1,12 @@
 {
   "name": "plainishtext",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "An angular directive for editing text with some formatting but not much.",
   "repository": {
     "url": "http://github.com/tqc/plainish-text"
+  },
+  "scripts": {
+    "test": "eslint . && mocha"
   },
   "main": "src/index.js",
   "keywords": [
@@ -14,6 +17,10 @@
   "license": "MIT",
   "devDependencies": {
     "angular-directive-builder": "^1.0.1",
-    "gh-pages": "^0.3.1"
+    "gh-pages": "^0.3.1",
+    "babel-eslint": "*",
+    "eslint": "^1.0.0",
+    "eslint-config-defaults": "^3.1.0",
+    "mocha": "^2.2.4"
   }
 }

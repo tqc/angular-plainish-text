@@ -7,13 +7,13 @@ gulp.task("default", function() {
         moduleName: "plainish-text"
     });
 });
- 
+
 gulp.task('deploy', function() {
     ghPages.publish(__dirname, {
         src: "./+(index.html|dist)",
         add: true,
-        debug:true,
-        push:true,
+        debug: true,
+        push: true,
         repo: __dirname
     },
     function(err) {

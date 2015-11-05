@@ -12,30 +12,24 @@ export default {
 
                 if ($attrs.options) {
                     $scope.$watch($attrs.options, function(o) {
-                    if (o) {
-                        options = angular.extend(options, o);
-                    }
-                });
+                        if (o) {
+                            options = angular.extend(options, o);
+                        }
+                    });
 
                 }
                 var getter = $parse($attrs.ngModel),
                     setter = getter.assign;
 
+                // the current data value, as saved in the model.
                 var storedHtml = "";
+                // the html as used by the editor, linked to element.html()
                 var renderedHtml = "";
-
-                function cleanHtml() {
-                    //  console.log("clean")
-                    $('font', $element).each(function() {
-                        $(this).replaceWith($(this).text());
-                    });
-                    $('span', $element).each(function() {
-                        $(this).replaceWith($(this).text());
-                    });
-
-                    $("[style]", $element).attr("style", null);
-
-                }
+                // the html last written to element.html() from the model.
+                // assuming that element.html("x"); element.html() == "x",
+                // this allows formatting of output without triggering unnecessary
+                // model changes.
+                var originalRenderedHtml = "";
 
                 function convertStoredToRendered() {
                     //    console.log("storedToRendered")
@@ -50,6 +44,7 @@ export default {
                         .replace(/<\/div>/gi, "</p>");
 
                     if (result != renderedHtml) {
+                        originalRenderedHtml = result;
                         renderedHtml = result;
                         $element.html(renderedHtml);
                         //                    cleanHtml();
@@ -57,11 +52,17 @@ export default {
                 }
 
                 function convertRenderedToStored() {
+                    // no need to store anything if the editor has not made changes
+                    if (renderedHtml == originalRenderedHtml) return;
                     //     console.log("renderedToStored")
                     var result = renderedHtml || "";
+                    result = result.replace(/<!--StartFragment-->/, "")
+                        .replace(/<!--EndFragment-->/, "")
+                        .replace(/\s\s+/g, " ")
+                        .replace(/<p><\/p>/gi, "")
+                        .trim();
                     /*
                                     result = result.replace(/<img class=\"annotation\"([^>]*)>/gi, "<annotation$1></annotation>")
-                                        .replace(/<p><\/p>/gi, "");
 
                                     result = result.replace(/<font([^>]*)>/gi, "")
                                         .replace(/<\/font>/gi, "")
@@ -72,6 +73,7 @@ export default {
 
                     if (result != storedHtml) {
                         storedHtml = result;
+                        originalRenderedHtml = renderedHtml;
                         setter($scope, storedHtml);
                         $scope.$apply();
                     }
@@ -321,12 +323,10 @@ export default {
                     }
 
                     if (newVal == storedHtml) {
-                        //    console.log("no actual change");
+                        // console.log("no actual change");
                         return;
                     } else {
-                        //   console.log("text updated from model");
-
-
+                        // console.log("text updated from model");
 
                         storedHtml = newVal;
                         convertStoredToRendered();
