@@ -56,10 +56,12 @@ export default {
                     if (renderedHtml == originalRenderedHtml) return;
                     //     console.log("renderedToStored")
                     var result = renderedHtml || "";
-                    result = result.replace(/<!--StartFragment-->/, "")
-                        .replace(/<!--EndFragment-->/, "")
-                        .replace(/\s\s+/g, " ")
+                    result = result.replace(/<!--StartFragment-->/gi, "")
+                        .replace(/<!--EndFragment-->/gi, "")
+                        .replace(/\s+/g, " ")
                         .replace(/<p><\/p>/gi, "")
+                        .replace(/style="[^"]*"/gi, "")
+                        .replace(/style='[^']*'/gi, "")
                         .trim();
                     /*
                                     result = result.replace(/<img class=\"annotation\"([^>]*)>/gi, "<annotation$1></annotation>")
