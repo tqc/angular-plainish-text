@@ -60,6 +60,7 @@ export default {
                         .replace(/<!--EndFragment-->/gi, "")
                         .replace(/\s+/g, " ")
                         .replace(/<p><\/p>/gi, "")
+                        .replace(/<ul>\s*<\/ul>/gi, "")
                         .replace(/style="[^"]*"/gi, "")
                         .replace(/style='[^']*'/gi, "")
                         .trim();
