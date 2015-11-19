@@ -19,7 +19,8 @@ gulp.task('deploy', ["default"], function() {
     ghPages.publish(path.join(__dirname, "/build"), {
         add: true,
         debug: true,
-        push: true
+        push: true,
+        repo: "git@github.com:tqc/plainish-text.git"
     },
         function(err) {
             if (err) console.log(err);
