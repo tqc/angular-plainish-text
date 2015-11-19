@@ -3,19 +3,19 @@ angular.module("plainish-text", []).directive("plainishText", ["$parse"].concat(
         scope: true,
         link: function($scope, $element, $attrs) {
           $element.attr("contenteditable", "true");
+          var options = {allowedTags: "p,b,i,ul,ol,li"};
+          if ($attrs.options) {
+            $scope.$watch($attrs.options, function(o) {
+              if (o) {
+                options = angular.extend(options, o);
+              }
+            });
+          }
           var getter = $parse($attrs.ngModel),
               setter = getter.assign;
           var storedHtml = "";
           var renderedHtml = "";
-          function cleanHtml() {
-            $('font', $element).each(function() {
-              $(this).replaceWith($(this).text());
-            });
-            $('span', $element).each(function() {
-              $(this).replaceWith($(this).text());
-            });
-            $("[style]", $element).attr("style", null);
-          }
+          var originalRenderedHtml = "";
           function convertStoredToRendered() {
             var result = storedHtml || "";
             if (result.indexOf("<") !== 0)
@@ -23,14 +23,19 @@ angular.module("plainish-text", []).directive("plainishText", ["$parse"].concat(
             result = result.replace(/<annotation([^>]*)><\/annotation>/gi, "<img class=\"annotation\"$1>");
             result = result.replace(/<font([^>]*)>/gi, "").replace(/<\/font>/gi, "").replace(/&nbsp;/gi, " ").replace(/<div>/gi, "<p>").replace(/<\/div>/gi, "</p>");
             if (result != renderedHtml) {
+              originalRenderedHtml = result;
               renderedHtml = result;
               $element.html(renderedHtml);
             }
           }
           function convertRenderedToStored() {
+            if (renderedHtml == originalRenderedHtml)
+              return ;
             var result = renderedHtml || "";
+            result = result.replace(/<!--StartFragment-->/gi, "").replace(/<!--EndFragment-->/gi, "").replace(/\s+/g, " ").replace(/<p><\/p>/gi, "").replace(/<ul>\s*<\/ul>/gi, "").replace(/style="[^"]*"/gi, "").replace(/style='[^']*'/gi, "").trim();
             if (result != storedHtml) {
               storedHtml = result;
+              originalRenderedHtml = renderedHtml;
               setter($scope, storedHtml);
               $scope.$apply();
             }
@@ -148,7 +153,7 @@ angular.module("plainish-text", []).directive("plainishText", ["$parse"].concat(
             }
           });
           $element.on("keypress", function(e) {
-            if (e.keyCode == '13' || isEmpty) {
+            if ((e.keyCode == '13' && !e.shiftKey) || isEmpty) {
               if (!selectionIsList()) {
                 document.execCommand("formatBlock", false, "p");
               }
@@ -161,7 +166,7 @@ angular.module("plainish-text", []).directive("plainishText", ["$parse"].concat(
                 rem(this);
               }
             });
-            if (!$root.is("p,b,i,ul,ol,li")) {
+            if (!$root.is(options.allowedTags)) {
               $root.replaceWith(root.innerHTML);
             } else {
               var attributes = $.map(root.attributes, function(item) {
