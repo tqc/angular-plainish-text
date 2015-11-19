@@ -5,12 +5,13 @@ var path = require("path");
 var server = require('gulp-develop-server');
 var chokidar = require('chokidar');
 
-gulp.task("default", function() {
+gulp.task("default", function(callback) {
     builder.build({
         moduleName: "plainish-text"
     }, function(err) {
         gulp.src(["demo/**", "dist/**"])
-            .pipe(gulp.dest("build"));
+            .pipe(gulp.dest("build"))
+            .on("end", callback)
     });
 });
 
