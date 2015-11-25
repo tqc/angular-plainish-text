@@ -1,0 +1,30 @@
+@import "../src/index.scss";
+
+body {
+    font-family: Helvetica, Arial;
+}
+
+.container {
+    margin: auto;
+    max-width: 750px;
+}
+
+[plainish-text] {
+    border: 1px solid silver;
+    font-family: Courier;
+    padding: 0 10px;
+}
+
+.row {
+    display: flex;
+}
+
+.htmlview {
+    min-width: 375px;
+    flex-grow: 1;
+    > div {
+        margin-right: 10px;
+        font-size: 10pt;
+        font-family: Courier;
+    }
+}

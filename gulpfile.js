@@ -5,7 +5,7 @@ var path = require("path");
 var server = require('gulp-develop-server');
 var chokidar = require('chokidar');
 
-gulp.task("default", function(callback) {
+gulp.task("default", ["sass"], function(callback) {
     builder.build({
         moduleName: "plainish-text"
     }, function(err) {
@@ -14,6 +14,14 @@ gulp.task("default", function(callback) {
             .on("end", callback)
     });
 });
+
+var sass = require('gulp-sass');
+gulp.task('sass', function () {
+    gulp.src('./demo/index.scss')
+    .pipe(sass().on('error', sass.logError))
+    .pipe(gulp.dest('./build'));
+});
+
 
 gulp.task('deploy', ["default"], function() {
     ghPages.publish(path.join(__dirname, "/build"), {
