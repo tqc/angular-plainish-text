@@ -218,6 +218,9 @@ export default {
                         if (this.nodeType === 1) {
                             rem(this);
                         }
+                        else if (this.nodeType == 8) {
+                            $(this).remove();
+                        }
                     });
 
                     if (!$root.is(options.allowedTags)) {
@@ -248,6 +251,8 @@ export default {
                         var stripper = $(html);
                         rem(stripper);
                         html = stripper.html();
+                        console.log("inserting");
+                        console.log(html);
                         document.execCommand("insertHtml", false, html);
                     } else {
                         var text = e.clipboardData.getData('text/plain');

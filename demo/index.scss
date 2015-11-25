@@ -13,6 +13,7 @@ body {
     border: 1px solid silver;
     font-family: Courier;
     padding: 0 10px;
+    min-height: 200px;
 }
 
 .row {
@@ -23,8 +24,10 @@ body {
     min-width: 375px;
     flex-grow: 1;
     > div {
+        overflow-x:hidden;
         margin-right: 10px;
         font-size: 10pt;
         font-family: Courier;
+        min-height: 200px;
     }
 }

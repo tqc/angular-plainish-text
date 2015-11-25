@@ -1,6 +1,6 @@
 {
   "name": "plainishtext",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "An angular directive for editing text with some formatting but not much.",
   "repository": {
     "url": "http://github.com/tqc/plainish-text"
