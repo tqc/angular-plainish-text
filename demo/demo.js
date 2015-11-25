@@ -14,7 +14,7 @@ angular.module("plainish-text-demo", ["plainish-text"])
 })
 .controller('demoCtrl', function($scope) {
     $scope.d = {
-        demoText: "Edit this text..."
+        demoText: "<p>Edit this text...</p>"
     };
 
     $scope.$watch("d.demoText", function(val) {        

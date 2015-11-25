@@ -5,19 +5,22 @@
 <script src="demo.js"></script>
 <link rel="stylesheet" href="index.css">
 
-<div class="container">
-
+<div class="top">
+    <div class="container">
 <h1>Plainish Text</h1>
 <p>An angular directive for editing text with some formatting but not much.</p>
 
 <p>Get it from <a href="https://github.com/tqc/plainish-text">GitHub</a> or <a href="https://www.npmjs.com/package/plainishtext">npm</a>
 
-<style>
+    </div>
+</div>
 
-</style>
+<div class="container">
+
 
 <div ng-controller="demoCtrl">
     <div>
+    <h3>Live demo</h3>
     <div plainish-text ng-model="d.demoText"></div>
     </div>
     <div class="row">
@@ -30,4 +33,10 @@
     <div>{{renderedHtml}}</div></div>
     </div>
 </div>
+</div>
+
+<div class="bottom">
+    <div class="container">
+    <p>Plainish text is developed by Sydney-based full stack developer <a href="http://tqclarkson.com/">Tom Clarkson</a></p>
+    </div>
 </div>
