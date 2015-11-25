@@ -3,10 +3,15 @@
 body {
     font-family: Helvetica, Arial;
     margin: 0;
+    background-color: #157C45;
 }
 
-.top {
-    background-color: #5088B5;
+.vcontainer {
+    display: flex;
+    flex-direction: column;
+}
+
+.toprow {
     background-image: url(bg.jpg);
     background-size: cover;
     color: white;
@@ -25,13 +30,18 @@ body {
     }
 }
 
-.bottom {
+.middlerow {
+    background-color: white;
+    flex-grow: 1;
+    padding-bottom: 2em;
+}
+
+.bottomrow {
     background-color: #5088B5;
     background-image: url(bg.jpg);
     background-size: cover;
     color: white;
     text-align: center;
-    margin-top: 2em;
     a {
         color: white;
     }

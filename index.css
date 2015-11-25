@@ -3,32 +3,40 @@
 
 body {
   font-family: Helvetica, Arial;
-  margin: 0; }
+  margin: 0;
+  background-color: #157C45; }
 
-.top {
-  background-color: #5088B5;
+.vcontainer {
+  display: flex;
+  flex-direction: column; }
+
+.toprow {
   background-image: url(bg.jpg);
   background-size: cover;
   color: white;
   padding: 2em 0;
   text-align: center;
   margin-bottom: 0em; }
-  .top h1 {
+  .toprow h1 {
     margin: 0 0;
     font-size: 48pt; }
-  .top a {
+  .toprow a {
     color: white; }
-  .top p {
+  .toprow p {
     margin-top: 3em; }
 
-.bottom {
+.middlerow {
+  background-color: white;
+  flex-grow: 1;
+  padding-bottom: 2em; }
+
+.bottomrow {
   background-color: #5088B5;
   background-image: url(bg.jpg);
   background-size: cover;
   color: white;
-  text-align: center;
-  margin-top: 2em; }
-  .bottom a {
+  text-align: center; }
+  .bottomrow a {
     color: white; }
 
 .container {
