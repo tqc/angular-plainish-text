@@ -8,7 +8,8 @@ body {
 
 .vcontainer {
   display: flex;
-  flex-direction: column; }
+  flex-direction: column;
+  min-height: 100%; }
 
 .toprow {
   background-image: url(bg.jpg);
