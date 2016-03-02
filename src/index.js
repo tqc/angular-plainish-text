@@ -61,6 +61,8 @@ export default {
                         .replace(/\s+/g, " ")
                         .replace(/<br><\/p>/gi, "</p>")
                         .replace(/<p><\/p>/gi, "")
+                        .replace(/<font([^>]*)>/gi, "")
+                        .replace(/<\/font>/gi, "")
                         .replace(/<ul>\s*<\/ul>/gi, "")
                         .replace(/style="[^"]*"/gi, "")
                         .replace(/style='[^']*'/gi, "")
