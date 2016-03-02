@@ -32,7 +32,7 @@ angular.module("plainish-text", []).directive("plainishText", ["$parse"].concat(
             if (renderedHtml == originalRenderedHtml)
               return ;
             var result = renderedHtml || "";
-            result = result.replace(/<!--StartFragment-->/gi, "").replace(/<!--EndFragment-->/gi, "").replace(/\s+/g, " ").replace(/<p><\/p>/gi, "").replace(/<ul>\s*<\/ul>/gi, "").replace(/style="[^"]*"/gi, "").replace(/style='[^']*'/gi, "").trim();
+            result = result.replace(/<!--StartFragment-->/gi, "").replace(/<!--EndFragment-->/gi, "").replace(/\s+/g, " ").replace(/<br><\/p>/gi, "</p>").replace(/<p><\/p>/gi, "").replace(/<font([^>]*)>/gi, "").replace(/<\/font>/gi, "").replace(/<ul>\s*<\/ul>/gi, "").replace(/style="[^"]*"/gi, "").replace(/style='[^']*'/gi, "").trim();
             if (result != storedHtml) {
               storedHtml = result;
               originalRenderedHtml = renderedHtml;
