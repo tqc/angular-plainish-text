@@ -59,6 +59,7 @@ export default {
                     result = result.replace(/<!--StartFragment-->/gi, "")
                         .replace(/<!--EndFragment-->/gi, "")
                         .replace(/\s+/g, " ")
+                        .replace(/<br><\/p>/gi, "</p>")
                         .replace(/<p><\/p>/gi, "")
                         .replace(/<ul>\s*<\/ul>/gi, "")
                         .replace(/style="[^"]*"/gi, "")
