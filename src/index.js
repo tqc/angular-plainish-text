@@ -32,7 +32,6 @@ export default {
                 var originalRenderedHtml = "";
 
                 function convertStoredToRendered() {
-                    //    console.log("storedToRendered")
                     var result = storedHtml || "";
                     if (result.indexOf("<") !== 0) result = "<p>" + result + "</p>";
                     result = result.replace(/<annotation([^>]*)><\/annotation>/gi, "<img class=\"annotation\"$1>");
@@ -117,10 +116,24 @@ export default {
                     convertRenderedToStored();
                 }
                 var isEmpty = false;
-                var observer = new MutationObserver(function() {
+                var observer = new MutationObserver(function(mrl) {
+                    for (let i = 0; i < mrl.length; i++) {
+                        let mr = mrl[i];
+                        for (let j = 0; j < mr.addedNodes.length; j++) {
+                            var n = mr.addedNodes[j];
+                            if (n.tagName == "FONT") {
+                                n.removeAttribute("color");
+                                n.removeAttribute("size");
+                                n.removeAttribute("face");
+                            }
+                            if (n.nodeType==Node.ELEMENT_NODE && n.hasAttribute("style")) {
+                                n.removeAttribute("style");
+                            }
+                        }
+                    }
+
                     if (isEmpty) {
                         var h = $element.html();
-                        //  console.log(h);
                         if (h && h.trim() && h.trim() != "<p></p>") {
                             $element.removeClass("empty");
                             isEmpty = false;
