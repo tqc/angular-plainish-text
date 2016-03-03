@@ -67,7 +67,8 @@ angular.module("plainish-text", []).directive("plainishText", ["$parse"].concat(
           }
           var debounceTimer = 0;
           function handleChange() {
-            renderedHtml = $element.html();
+            var text = ($element[0].textContent || "").trim();
+            renderedHtml = text.length ? $element.html() : "";
             convertRenderedToStored();
           }
           var isEmpty = false;
