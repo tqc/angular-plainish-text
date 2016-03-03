@@ -112,7 +112,8 @@ export default {
                 function handleChange() {
                     //      console.log("handleChange")
                     //                cleanHtml();
-                    renderedHtml = $element.html();
+                    var text = ($element[0].textContent || "").trim();
+                    renderedHtml = text.length ? $element.html() : "";
                     convertRenderedToStored();
                 }
                 var isEmpty = false;
