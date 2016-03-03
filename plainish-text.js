@@ -71,7 +71,21 @@ angular.module("plainish-text", []).directive("plainishText", ["$parse"].concat(
             convertRenderedToStored();
           }
           var isEmpty = false;
-          var observer = new MutationObserver(function() {
+          var observer = new MutationObserver(function(mrl) {
+            for (var i = 0; i < mrl.length; i++) {
+              var mr = mrl[i];
+              for (var j = 0; j < mr.addedNodes.length; j++) {
+                var n = mr.addedNodes[j];
+                if (n.tagName == "FONT") {
+                  n.removeAttribute("color");
+                  n.removeAttribute("size");
+                  n.removeAttribute("face");
+                }
+                if (n.nodeType == Node.ELEMENT_NODE && n.hasAttribute("style")) {
+                  n.removeAttribute("style");
+                }
+              }
+            }
             if (isEmpty) {
               var h = $element.html();
               if (h && h.trim() && h.trim() != "<p></p>") {
