@@ -3,7 +3,10 @@ angular.module("plainish-text", []).directive("plainishText", ["$parse"].concat(
         scope: true,
         link: function($scope, $element, $attrs) {
           $element.attr("contenteditable", "true");
-          var options = {allowedTags: "p,b,i,ul,ol,li"};
+          var options = {
+            allowedTags: "p,b,i,ul,ol,li",
+            allowEmptyParagraphs: false
+          };
           if ($attrs.options) {
             $scope.$watch($attrs.options, function(o) {
               if (o) {
@@ -21,7 +24,9 @@ angular.module("plainish-text", []).directive("plainishText", ["$parse"].concat(
             if (result.indexOf("<") !== 0)
               result = "<p>" + result + "</p>";
             result = result.replace(/<annotation([^>]*)><\/annotation>/gi, "<img class=\"annotation\"$1>");
-            result = result.replace(/<font([^>]*)>/gi, "").replace(/<\/font>/gi, "").replace(/&nbsp;/gi, " ").replace(/<div>/gi, "<p>").replace(/<\/div>/gi, "</p>");
+            result = result.replace(/<font([^>]*)>/gi, "").replace(/<\/font>/gi, "").replace(/<div>/gi, "<p>").replace(/<\/div>/gi, "</p>").replace(/&nbsp;/gi, " ");
+            if (options.allowEmptyParagraphs)
+              result = result.replace(/<p> <\/p>/gi, "<p>&nbsp;</p>");
             if (result != renderedHtml) {
               originalRenderedHtml = result;
               renderedHtml = result;
@@ -32,7 +37,9 @@ angular.module("plainish-text", []).directive("plainishText", ["$parse"].concat(
             if (renderedHtml == originalRenderedHtml)
               return ;
             var result = renderedHtml || "";
-            result = result.replace(/<!--StartFragment-->/gi, "").replace(/<!--EndFragment-->/gi, "").replace(/\s+/g, " ").replace(/<br><\/p>/gi, "</p>").replace(/<p><\/p>/gi, "").replace(/<font([^>]*)>/gi, "").replace(/<\/font>/gi, "").replace(/<ul>\s*<\/ul>/gi, "").replace(/style="[^"]*"/gi, "").replace(/style='[^']*'/gi, "").trim();
+            result = result.replace(/<!--StartFragment-->/gi, "").replace(/<!--EndFragment-->/gi, "").replace(/\s+/g, " ").replace(/<br><\/p>/gi, "</p>").replace(/<p><\/p>/gi, result.allowEmptyParagraphs ? "<p>&nbsp;</p>" : "").replace(/<font([^>]*)>/gi, "").replace(/<\/font>/gi, "").replace(/<ul>\s*<\/ul>/gi, "").replace(/style="[^"]*"/gi, "").replace(/style='[^']*'/gi, "").trim();
+            if (result == "<p>&nbsp;</p>")
+              result = "";
             if (result != storedHtml) {
               storedHtml = result;
               originalRenderedHtml = renderedHtml;
