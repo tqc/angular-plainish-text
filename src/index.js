@@ -39,10 +39,10 @@ export default {
                     result = result.replace(/<font([^>]*)>/gi, "")
                         .replace(/<\/font>/gi, "")
                         .replace(/<div>/gi, "<p>")
-                        .replace(/<\/div>/gi, "</p>");
+                        .replace(/<\/div>/gi, "</p>")
                         .replace(/&nbsp;/gi, " ");
 
-                    if (allowEmptyParagraphs) result = result.replace(.replace(/<p> <\/p>/gi, "<p>&nbsp;</p>");
+                    if (options.allowEmptyParagraphs) result = result.replace(/<p> <\/p>/gi, "<p>&nbsp;</p>");
 
                     if (result != renderedHtml) {
                         originalRenderedHtml = result;
@@ -69,7 +69,7 @@ export default {
                         .replace(/style='[^']*'/gi, "")
                         .trim();
 
-                        if (result == "<p>&nbsp;</p>") result = "";
+                    if (result == "<p>&nbsp;</p>") result = "";
                     /*
                                     result = result.replace(/<img class=\"annotation\"([^>]*)>/gi, "<annotation$1></annotation>")
 
