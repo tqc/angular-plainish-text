@@ -7,7 +7,8 @@ export default {
             link: function($scope, $element, $attrs) {
                 $element.attr("contenteditable", "true");
                 var options = {
-                    allowedTags: "p,b,i,ul,ol,li"
+                    allowedTags: "p,b,i,ul,ol,li",
+                    allowEmptyParagraphs: false
                 };
 
                 if ($attrs.options) {
@@ -36,11 +37,12 @@ export default {
                     if (result.indexOf("<") !== 0) result = "<p>" + result + "</p>";
                     result = result.replace(/<annotation([^>]*)><\/annotation>/gi, "<img class=\"annotation\"$1>");
                     result = result.replace(/<font([^>]*)>/gi, "")
-                        .replace(/<\/font>/gi, "")
-                        .replace(/&nbsp;/gi, " ")
-
-                    .replace(/<div>/gi, "<p>")
+                        .replace(/<\/font>/gi, "");
+                        .replace(/<div>/gi, "<p>")
                         .replace(/<\/div>/gi, "</p>");
+                        .replace(/&nbsp;/gi, " ");
+
+                    if (allowEmptyParagraphs) result = result.replace(.replace(/<p> <\/p>/gi, "<p>&nbsp;</p>");
 
                     if (result != renderedHtml) {
                         originalRenderedHtml = result;
@@ -59,13 +61,15 @@ export default {
                         .replace(/<!--EndFragment-->/gi, "")
                         .replace(/\s+/g, " ")
                         .replace(/<br><\/p>/gi, "</p>")
-                        .replace(/<p><\/p>/gi, "")
+                        .replace(/<p><\/p>/gi, result.allowEmptyParagraphs ? "<p>&nbsp;</p>" : "")
                         .replace(/<font([^>]*)>/gi, "")
                         .replace(/<\/font>/gi, "")
                         .replace(/<ul>\s*<\/ul>/gi, "")
                         .replace(/style="[^"]*"/gi, "")
                         .replace(/style='[^']*'/gi, "")
                         .trim();
+                        
+                        if (result == "<p>&nbsp;</p>") result = "";
                     /*
                                     result = result.replace(/<img class=\"annotation\"([^>]*)>/gi, "<annotation$1></annotation>")
 
