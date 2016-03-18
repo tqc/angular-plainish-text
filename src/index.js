@@ -37,7 +37,7 @@ export default {
                     if (result.indexOf("<") !== 0) result = "<p>" + result + "</p>";
                     result = result.replace(/<annotation([^>]*)><\/annotation>/gi, "<img class=\"annotation\"$1>");
                     result = result.replace(/<font([^>]*)>/gi, "")
-                        .replace(/<\/font>/gi, "");
+                        .replace(/<\/font>/gi, "")
                         .replace(/<div>/gi, "<p>")
                         .replace(/<\/div>/gi, "</p>");
                         .replace(/&nbsp;/gi, " ");
@@ -68,7 +68,7 @@ export default {
                         .replace(/style="[^"]*"/gi, "")
                         .replace(/style='[^']*'/gi, "")
                         .trim();
-                        
+
                         if (result == "<p>&nbsp;</p>") result = "";
                     /*
                                     result = result.replace(/<img class=\"annotation\"([^>]*)>/gi, "<annotation$1></annotation>")
