@@ -1,6 +1,6 @@
 {
   "name": "plainishtext",
-  "version": "1.0.11",
+  "version": "1.0.12",
   "description": "An angular directive for editing text with some formatting but not much.",
   "homepage": "http://tqc/github.io/plainish-text",
   "repository": {
@@ -10,6 +10,7 @@
     "test": "eslint . && mocha"
   },
   "main": "src/index.js",
+  "esnext:main": "src/index.js",
   "keywords": [
     "angular",
     "contenteditable"
