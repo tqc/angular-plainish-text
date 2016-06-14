@@ -17,7 +17,7 @@ angular.module("plainish-text-demo", ["plainish-text"])
         demoText: "<p>Edit this text...</p>"
     };
 
-    $scope.$watch("d.demoText", function(val) {        
+    $scope.$watch("d.demoText", function(val) {
         $scope.storedHtml = val;
         $scope.renderedHtml = $("[plainish-text]").html() || val;
     });
