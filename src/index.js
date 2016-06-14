@@ -131,7 +131,7 @@ export default {
                                 n.removeAttribute("size");
                                 n.removeAttribute("face");
                             }
-                            if (n.nodeType==Node.ELEMENT_NODE && n.hasAttribute("style")) {
+                            if (n.nodeType == Node.ELEMENT_NODE && n.hasAttribute("style")) {
                                 n.removeAttribute("style");
                             }
                         }

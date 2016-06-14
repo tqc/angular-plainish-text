@@ -9,14 +9,15 @@ gulp.task("default", ["sass"], function(callback) {
     builder.build({
         moduleName: "plainish-text"
     }, function(err) {
+        if (err) console.log(err);
         gulp.src(["demo/**", "dist/**"])
             .pipe(gulp.dest("build"))
-            .on("end", callback)
+            .on("end", callback);
     });
 });
 
 var sass = require('gulp-sass');
-gulp.task('sass', function () {
+gulp.task('sass', function() {
     gulp.src('./demo/index.scss')
     .pipe(sass().on('error', sass.logError))
     .pipe(gulp.dest('./build'));
