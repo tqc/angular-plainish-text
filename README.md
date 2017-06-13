@@ -4,4 +4,4 @@
 
 An angular directive for editing text with some formatting but not much.
 
-[Demo](http://tqc.github.io/plainish-text)
+[Demo](http://tqc.github.io/angular-plainish-text)
