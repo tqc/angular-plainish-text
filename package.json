@@ -1,10 +1,10 @@
 {
   "name": "plainishtext",
-  "version": "1.0.13",
+  "version": "1.0.14",
   "description": "An angular directive for editing text with some formatting but not much.",
-  "homepage": "http://tqc/github.io/plainish-text",
+  "homepage": "http://tqc/github.io/angular-plainish-text",
   "repository": {
-    "url": "http://github.com/tqc/plainish-text"
+    "url": "http://github.com/tqc/angular-plainish-text"
   },
   "scripts": {
     "test": "eslint . && mocha"
